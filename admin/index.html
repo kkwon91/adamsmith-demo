@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>관리자 | 애덤스미스</title>
+<meta name="description" content="애덤스미스·전인구경제연구소 홈페이지 관리자 데모 — AI 자가진화 센터에서 매일 올라오는 영상 정리·질문 답변·문구 실험 초안을 승인합니다. 예시 데이터입니다.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="same-origin">
+<meta name="theme-color" content="#0f1a2b">
+<meta name="color-scheme" content="light">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="ad">
+<a class="ad-skip" href="#ad-main">본문 바로가기</a>
+<noscript><p class="ad-noscript">관리자 데모는 자바스크립트가 켜져 있어야 동작합니다.</p></noscript>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 13.5h4.5l1.5 2.5h4l1.5-2.5H20"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v5.2L5 18.4a1.4 1.4 0 0 0 1.2 2.1h11.6a1.4 1.4 0 0 0 1.2-2.1l-5.5-9.7V3.5"/><path d="M7.6 14h8.8"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4.5" y="7.5" width="15" height="11" rx="2.5"/><path d="M12 4v3.5M9 12.5v1M15 12.5v1M2.5 12v3M21.5 12v3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9"/><path d="M4.5 4.5V9H9M12 8v4.3l3 1.8"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2-1.3-2 1.3-2-1.3-2 1.3-2-1.3-2 1.3z"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 3.5l3 3-3 3"/><path d="M4 11.5v-1a4 4 0 0 1 4-4h12M7 20.5l-3-3 3-3"/><path d="M20 12.5v1a4 4 0 0 1-4 4H4"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3.5 7.5h17v3a1.5 1.5 0 0 0 0 3v3h-17v-3a1.5 1.5 0 0 0 0-3z"/><path d="M14.5 7.5v9" stroke-dasharray="1.6 1.8"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="m10.2 9.2 4.6 2.8-4.6 2.8z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10.5 5-3v9l-5-3"/></symbol>
+    <symbol id="i-qa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6M12 16.6v.4"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r=".9"/><circle cx="4.8" cy="12" r=".9"/><circle cx="4.8" cy="17.5" r=".9"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.3"/><path d="M2.8 19.5c.7-3.5 3.2-5.3 6.2-5.3s5.5 1.8 6.2 5.3"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.6 14.4c2 .6 3.3 2.3 3.7 5.1"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H10.5L6 19.6V16H4z"/><path d="M8 9.4h8M8 12.3h5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 4l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 16.4l-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M3.5 9h17M10 9v11"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.6"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M18 13.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5.5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 7h17M3.5 12h17M3.5 17h11"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.8 21.2 19.5H2.8z"/><path d="M12 10v4.4M12 16.8v.4"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7.5 4.5 12 9 16.5"/><path d="M4.5 12H15a4.5 4.5 0 0 1 0 9h-2"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19H5v-4z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </defs>
+</svg>
+
+<!-- 로그인 -->
+<div class="ad-login" id="ad-login" hidden>
+  <main class="ad-login__panel" tabindex="-1">
+    <a class="ad-login__home" href="../"><img src="../assets/img/logo-ink.png" alt="애덤스미스 — 사이트로 가기" width="1200" height="219"></a>
+    <p class="ad-login__kicker"><span class="ad-dot" aria-hidden="true"></span>관리자 데모 · 예시 데이터</p>
+    <h1 class="ad-login__title">관리자 로그인</h1>
+    <p class="ad-login__lead">사이트가 매일 새 영상·검색어·문의·이탈·AI 답변을 보고 초안을 올립니다. 운영자는 아침에 <b>AI 자가진화 센터</b>에서 승인만 누르면 됩니다.</p>
+    <form class="ad-login__form" id="ad-login-form" novalidate>
+      <label class="ad-field"><span class="ad-field__label">아이디</span><input class="ad-input" id="ad-login-id" name="id" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" required></label>
+      <label class="ad-field"><span class="ad-field__label">비밀번호</span><input class="ad-input" id="ad-login-pw" name="pw" type="password" autocomplete="current-password" required></label>
+      <p class="ad-login__err" id="ad-login-err" role="alert" hidden></p>
+      <button class="ad-btn ad-btn--primary ad-btn--lg ad-btn--block" type="submit">로그인</button>
+    </form>
+    <div class="ad-login__demo">
+      <p class="ad-login__demo-t">예시 계정</p>
+      <dl class="ad-login__acc">
+        <div><dt>아이디</dt><dd><code>moneydo</code></dd></div>
+        <div><dt>비밀번호</dt><dd><code>demo1234</code></dd></div>
+      </dl>
+      <p class="ad-login__note">시연용 계정입니다. 운영 단계에서는 머니두 직원 계정과 2단계 인증으로 바꿉니다. 로그인 상태는 이 탭에만 기억합니다.</p>
+      <button class="ad-btn ad-btn--line ad-btn--sm" type="button" data-act="fill-demo">예시 계정 넣기</button>
+    </div>
+    <p class="ad-login__back"><a href="../">사이트로 돌아가기</a></p>
+  </main>
+</div>
+
+<!-- 관리자 화면 -->
+<div class="ad-app" id="ad-app" hidden>
+  <aside class="ad-side" id="ad-side" aria-label="관리자 메뉴">
+    <div class="ad-side__head">
+      <a class="ad-side__brand" href="#inbox"><img src="../assets/img/logo-white.png" alt="애덤스미스 관리자 — 오늘의 제안" width="1200" height="219"></a>
+      <button class="ad-iconbtn ad-side__close" type="button" data-act="nav-close" aria-label="메뉴 닫기"><svg class="ad-ico"><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="ad-nav" id="ad-nav" aria-label="관리자 메뉴"></nav>
+    <div class="ad-side__foot">
+      <p><span class="ad-dot" aria-hidden="true"></span>데모 · 누른 결과는 이 브라우저에만 저장됩니다</p>
+    </div>
+  </aside>
+  <div class="ad-scrim" id="ad-scrim" data-act="nav-close" hidden></div>
+  <div class="ad-body">
+    <header class="ad-top">
+      <button class="ad-iconbtn ad-top__menu" type="button" data-act="nav-open" aria-controls="ad-side" aria-expanded="false" aria-label="메뉴 열기"><svg class="ad-ico"><use href="#i-menu"/></svg></button>
+      <p class="ad-top__where" id="ad-where"></p>
+      <div class="ad-top__right">
+        <span class="ad-top__demo">예시 데이터</span>
+        <a class="ad-btn ad-btn--line ad-btn--sm" href="../" target="_blank" rel="noopener" aria-label="사이트 보기(새 창)"><span>사이트 보기</span><svg class="ad-ico ad-ico--sm"><use href="#i-ext"/></svg><span class="ad-sr">(새 창)</span></a>
+        <button class="ad-btn ad-btn--ghost ad-btn--sm" type="button" data-act="reset" aria-label="시연 초기화"><svg class="ad-ico ad-ico--sm"><use href="#i-undo"/></svg><b class="ad-top__reset"><span class="ad-hide-s">시연 </span>초기화</b></button>
+        <button class="ad-btn ad-btn--ghost ad-btn--sm ad-top__out" type="button" data-act="logout">로그아웃</button>
+      </div>
+    </header>
+    <main class="ad-main" id="ad-main" tabindex="-1">
+      <p class="ad-loading">불러오는 중…</p>
+    </main>
+  </div>
+</div>
+
+<div class="ad-toast" id="ad-toast" role="status" aria-live="polite"></div>
+<div id="ad-layer"></div>
+
+<script src="admin.js" defer></script>
+</body>
+</html>

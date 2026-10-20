@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>장바구니 | 애덤스미스</title>
+<meta name="description" content="애덤스미스 장바구니. 강의·구독반·책을 한 번에 담아 결제합니다. 결제가 끝나면 강의는 바로 내 강의실에 열립니다(데모: 이 브라우저에만 저장).">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://kkwon91.github.io/adamsmith-demo/cart/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="애덤스미스 · 전인구경제연구소">
+<meta property="og:title" content="장바구니">
+<meta property="og:description" content="애덤스미스 장바구니. 강의·구독반·책을 한 번에 담아 결제합니다. 결제가 끝나면 강의는 바로 내 강의실에 열립니다(데모: 이 브라우저에만 저장).">
+<meta property="og:url" content="https://kkwon91.github.io/adamsmith-demo/cart/">
+<meta property="og:image" content="https://kkwon91.github.io/adamsmith-demo/assets/img/og-default.jpg">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1a2b">
+<link rel="icon" type="image/png" sizes="32x32" href="/adamsmith-demo/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/adamsmith-demo/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="/adamsmith-demo/assets/css/site.css?v=9741e364">
+<link rel="alternate" type="text/plain" title="llms.txt" href="/adamsmith-demo/llms.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://kkwon91.github.io/adamsmith-demo/"},{"@type":"ListItem","position":2,"name":"장바구니","item":"https://kkwon91.github.io/adamsmith-demo/cart/"}]}</script>
+
+</head>
+<body class="" data-base="/adamsmith-demo/" data-path="/cart/">
+<a class="skip" href="#main">본문 바로가기</a>
+<div class="demo-ribbon" role="note"><b>데모</b> · 이 사이트는 (주)머니두 홈페이지 리뉴얼 데모입니다. 결제·로그인·수강은 시연이며 실제로 처리되지 않습니다. <a href="/adamsmith-demo/admin/">관리자 화면 보기</a></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/adamsmith-demo/" aria-label="애덤스미스 홈"><img src="/adamsmith-demo/assets/img/logo-ink.png" alt="애덤스미스 ADAMSMITH" width="1200" height="219"><span class="lab">전인구경제연구소</span></a>
+    <nav aria-label="주 메뉴"><ul class="gnb"><li><a href="/adamsmith-demo/classes/">강의</a></li><li><a href="/adamsmith-demo/membership/">구독반</a></li><li><a href="/adamsmith-demo/books/">책</a></li><li><a href="/adamsmith-demo/videos/">영상 정리</a></li><li><a href="/adamsmith-demo/answers/">질문 답변</a></li><li><a href="/adamsmith-demo/about/">전인구 소개</a></li><li><a href="/adamsmith-demo/help/">고객센터</a></li></ul></nav>
+    <div class="tools">
+      <button class="icon-btn" type="button" data-open-search aria-label="사이트 검색"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <a class="icon-btn hide-s" href="/adamsmith-demo/my/" aria-label="내 강의실"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+      <a class="icon-btn" href="/adamsmith-demo/cart/" aria-label="장바구니"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2l2.2 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg><span class="badge" data-cart-count hidden>0</span></a>
+      <a class="btn primary small btn-start" href="/adamsmith-demo/start/">2분 공부 찾기</a>
+      <button class="icon-btn menu-btn" type="button" data-open-drawer aria-label="메뉴 열기" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="scrim" data-close-drawer></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="메뉴">
+    <button class="icon-btn close" type="button" data-close-drawer aria-label="메뉴 닫기"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <a class="btn primary block" href="/adamsmith-demo/start/">2분 만에 나에게 맞는 공부 찾기</a>
+    <nav aria-label="휴대폰 메뉴"><a href="/adamsmith-demo/classes/">강의</a><a href="/adamsmith-demo/membership/">구독반</a><a href="/adamsmith-demo/books/">책</a><a href="/adamsmith-demo/videos/">영상 정리</a><a href="/adamsmith-demo/answers/">질문 답변</a><a href="/adamsmith-demo/about/">전인구 소개</a><a href="/adamsmith-demo/help/">고객센터</a></nav>
+    <div class="sub">
+      <a href="/adamsmith-demo/my/">내 강의실</a><a href="/adamsmith-demo/cart/">장바구니</a><a href="/adamsmith-demo/official/">공식 채널 확인</a><a href="/adamsmith-demo/business/">기업·단체 문의</a>
+    </div>
+  </div>
+</div>
+<div class="search" id="search" aria-hidden="true">
+  <div class="box" role="dialog" aria-modal="true" aria-label="사이트 검색">
+    <label for="q">강의·책·영상·질문 검색</label>
+    <input id="q" type="search" autocomplete="off" placeholder="예: 환율, 왕초보, 구독 해지, 환불">
+    <ul id="q-results" aria-live="polite"></ul>
+    <p class="hint">찾는 내용이 없으면 그 검색어가 기록되어, 다음 날 새 답변 초안으로 올라갑니다(데모: 이 브라우저에만 저장).</p>
+  </div>
+</div>
+<main id="main">
+<header class="page-head"><div class="wrap"><nav class="crumbs" aria-label="현재 위치"><ol><li><a href="/adamsmith-demo/">홈</a></li><li><span aria-current="page">장바구니</span></li></ol></nav><h1>장바구니</h1><p class="lead">강의·구독반·책을 한 번에 결제합니다. 결제가 끝나면 강의는 바로 내 강의실에 열립니다.</p></div></header>
+<section class="sec tight">
+  <div class="wrap" data-shop="cart">
+    <p class="hp-loading" data-loading>불러오는 중입니다…</p>
+    <div class="hp-cart" id="hp-cart" hidden>
+      <div class="hp-cart-main">
+        <div class="hp-cart-top"><h2 class="hp-h2">담은 항목 <span class="n" data-count></span></h2><button type="button" class="hp-textbtn" data-clear>전체 지우기</button></div>
+        <ul class="hp-lines" id="hp-lines"></ul>
+        <p class="hp-fine" data-ship-note hidden>책·상품 배송비 무료 · 배송 기간 결제 확인 후 3~7일 <span class="hp-pending">데모 기준안 · 운영 전 확정 필요</span></p>
+      </div>
+      <aside class="hp-sum" aria-labelledby="sum-title">
+        <h2 class="hp-sum-title" id="sum-title">결제 금액</h2>
+        <dl class="hp-sum-rows" id="hp-sum-rows"></dl>
+        <a class="btn primary block" href="/adamsmith-demo/checkout/" data-go-checkout>결제하기</a>
+        <p class="hp-fine">시연입니다. 실제로 결제되지 않습니다.</p>
+      </aside>
+    </div>
+    <div class="hp-empty" id="hp-empty" hidden>
+      <div class="hp-empty-box"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2l2.2 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg><h2>장바구니가 비어 있습니다</h2><p>무엇부터 들을지 모르겠다면 다섯 가지 질문으로 골라 보세요.</p><div class="btns"><a class="btn primary" href="/adamsmith-demo/start/">2분 공부 찾기</a><a class="btn line" href="/adamsmith-demo/classes/">강의 전체</a><a class="btn line" href="/adamsmith-demo/books/">책</a></div></div>
+      <h2 class="hp-h2 hp-empty-sub">먼저 둘러볼 강의</h2>
+      <div class="grid c3"><article class="card course">
+  <div class="thumb"><img src="/adamsmith-demo/assets/img/c-48308.webp" alt="왕초보 주식투자 강의 대표 이미지" width="800" height="450" loading="lazy" decoding="async" sizes="(max-width: 620px) 100vw, 380px"></div>
+  <div class="body">
+    <div class="tags"><span class="tag ">정규</span></div>
+    <h3><a href="/adamsmith-demo/classes/beginner-stock/">왕초보 주식투자</a></h3>
+    <p class="desc">왕초보 주식투자는 주식을 처음 시작하는 분이 주식 사는 법부터 PER·재무제표·차트까지 30강으로 배우는 강의로, 150,000원에 90일 동안 수강합니다.</p>
+    <div class="meta"><span>전인구</span><span>30강</span><span>90일</span></div>
+    <div class="price">150,000원</div>
+  </div>
+</article><article class="card course">
+  <div class="thumb"><img src="/adamsmith-demo/assets/img/c-195487.webp" alt="2026 실전 투자반 강의 대표 이미지" width="770" height="539" loading="lazy" decoding="async" sizes="(max-width: 620px) 100vw, 380px"></div>
+  <div class="body">
+    <div class="tags"><span class="tag sub">구독</span></div>
+    <h3><a href="/adamsmith-demo/classes/practical-2026/">2026 실전 투자반</a></h3>
+    <p class="desc">2026 실전 투자반은 경제 전망과 업종 흐름을 매달 꾸준히 공부하려는 분이 전인구 대표의 주간 라이브와 VOD로 배우는 구독반으로, 30일마다 70,000원씩 자동 결제됩니다.</p>
+    <div class="meta"><span>전인구</span><span>24강</span><span>매월 결제</span></div>
+    <div class="price">월 70,000원</div>
+  </div>
+</article><article class="card course">
+  <div class="thumb"><img src="/adamsmith-demo/assets/img/c-172457.webp" alt="다음 부자는 양자컴퓨터에서 나옵니다 (무료 강의) 강의 대표 이미지" width="770" height="539" loading="lazy" decoding="async" sizes="(max-width: 620px) 100vw, 380px"></div>
+  <div class="body">
+    <div class="tags"><span class="tag free">무료</span></div>
+    <h3><a href="/adamsmith-demo/classes/quantum-free/">양자컴퓨터 무료 강의</a></h3>
+    <p class="desc">양자컴퓨터 무료 강의는 양자컴퓨터 투자가 궁금한 분이 정규 강의의 앞 5강(85분)을 먼저 들어 보는 무료 과정으로, 신청하면 30일 동안 볼 수 있습니다.</p>
+    <div class="meta"><span>권중현</span><span>5강</span><span>30일</span></div>
+    <div class="price">무료</div>
+  </div>
+</article></div>
+    </div>
+    <noscript><p class="note">장바구니·결제·내 강의실 시연은 브라우저의 스크립트가 켜져 있어야 보입니다.</p></noscript>
+  </div>
+</section>
+<script type="application/json" id="hp-shop-data">{"cat":{"course:practical-2026":{"type":"course","slug":"practical-2026","title":"2026 실전 투자반","short":"2026 실전 투자반","kind":"구독","price":70000,"unit":"월","period":"매월 자동 결제(30일 단위)","days":30,"lessons":24,"img":"/adamsmith-demo/assets/img/c-195487.webp","href":"/adamsmith-demo/classes/practical-2026/"},"course:pangyo":{"type":"course","slug":"pangyo","title":"판교불패","short":"판교불패","kind":"구독","price":40000,"unit":"월","period":"매월 자동 결제(30일 단위)","days":30,"lessons":9,"img":"/adamsmith-demo/assets/img/c-207322.webp","href":"/adamsmith-demo/classes/pangyo/"},"course:beginner-stock":{"type":"course","slug":"beginner-stock","title":"왕초보 주식투자","short":"왕초보 주식투자","kind":"정규","price":150000,"unit":"","period":"90일","days":90,"lessons":30,"img":"/adamsmith-demo/assets/img/c-48308.webp","href":"/adamsmith-demo/classes/beginner-stock/"},"course:quantum":{"type":"course","slug":"quantum","title":"다음 부자는 양자컴퓨터에서 나옵니다 (정규 강의)","short":"양자컴퓨터 정규 강의","kind":"정규","price":200000,"unit":"","period":"90일","days":90,"lessons":15,"img":"/adamsmith-demo/assets/img/c-172699.webp","href":"/adamsmith-demo/classes/quantum/"},"course:quantum-free":{"type":"course","slug":"quantum-free","title":"다음 부자는 양자컴퓨터에서 나옵니다 (무료 강의)","short":"양자컴퓨터 무료 강의","kind":"무료","price":0,"unit":"","period":"30일","days":30,"lessons":5,"img":"/adamsmith-demo/assets/img/c-172457.webp","href":"/adamsmith-demo/classes/quantum-free/"},"course:superant-park":{"type":"course","slug":"superant-park","title":"슈퍼개미 박두환이 가치투자자가 되기까지","short":"슈퍼개미 박두환 이야기","kind":"무료","price":0,"unit":"","period":"30일","days":30,"lessons":5,"img":"/adamsmith-demo/assets/img/c-188201.webp","href":"/adamsmith-demo/classes/superant-park/"},"course:yangyang-videos":{"type":"course","slug":"yangyang-videos","title":"양양선생님 유튜브 출연 영상 모음집","short":"양양선생님 출연 영상 모음","kind":"무료","price":0,"unit":"","period":"30일","days":30,"lessons":29,"img":"/adamsmith-demo/assets/img/c-179658.webp","href":"/adamsmith-demo/classes/yangyang-videos/"},"course:kids-economy":{"type":"course","slug":"kids-economy","title":"전인구 선생님의 어린이 경제 개념 대백과","short":"어린이 경제 개념 대백과","kind":"무료","price":0,"unit":"","period":"60일","days":60,"lessons":20,"img":"/adamsmith-demo/assets/img/c-163095.webp","href":"/adamsmith-demo/classes/kids-economy/"},"course:offline-qa-2026h2":{"type":"course","slug":"offline-qa-2026h2","title":"2026 하반기 오프라인 Q&A","short":"2026 하반기 특강 Q&A 다시 보기","kind":"무료","price":0,"unit":"","period":"30일","days":30,"lessons":1,"img":"/adamsmith-demo/assets/img/c-205191.webp","href":"/adamsmith-demo/classes/offline-qa-2026h2/"},"course:book-curation":{"type":"course","slug":"book-curation","title":"애덤스미스 기업 북 큐레이션","short":"기업 북 큐레이션","kind":"기업","price":3000000,"unit":"월","period":"매월(기업 계약)","days":30,"lessons":0,"img":"/adamsmith-demo/assets/img/c-208369.webp","href":"/adamsmith-demo/classes/book-curation/"},"book:fx-war-2026":{"type":"book","slug":"fx-war-2026","title":"2026 환율 전쟁","short":"2026 환율 전쟁","kind":"책","price":22500,"listPrice":25000,"unit":"","author":"김경원, 전인구","img":"/adamsmith-demo/assets/img/b-fx2026.webp","href":"/adamsmith-demo/books/fx-war-2026/"},"book:stock-roots":{"type":"book","slug":"stock-roots","title":"주식 투자의 뿌리","short":"주식 투자의 뿌리","kind":"책","price":19800,"listPrice":22000,"unit":"","author":"박두환","img":"/adamsmith-demo/assets/img/b-root.webp","href":"/adamsmith-demo/books/stock-roots/"},"book:stock-textbook":{"type":"book","slug":"stock-textbook","title":"딴딴한 투자를 위한 주식투자 교과서","short":"딴딴한 투자를 위한 주식투자 교과서","kind":"책","price":22500,"listPrice":25000,"unit":"","author":"정규준","img":"/adamsmith-demo/assets/img/b-textbook.webp","href":"/adamsmith-demo/books/stock-textbook/"},"book:wallstreet-us-stocks":{"type":"book","slug":"wallstreet-us-stocks","title":"월가보다 먼저 움직이는 미국 주식 투자법","short":"월가보다 먼저 움직이는 미국 주식 투자법","kind":"책","price":19800,"listPrice":22000,"unit":"","author":"","img":"/adamsmith-demo/assets/img/b-wallst.webp","href":"/adamsmith-demo/books/wallstreet-us-stocks/"},"book:spacex":{"type":"book","slug":"spacex","title":"스페이스X가 온다","short":"스페이스X가 온다","kind":"책","price":19800,"listPrice":22000,"unit":"","author":"이재훈(드라이트리)","img":"/adamsmith-demo/assets/img/b-spacex.webp","href":"/adamsmith-demo/books/spacex/"},"book:quantum-invest":{"type":"book","slug":"quantum-invest","title":"지금 당장 양자컴퓨터에 투자하라","short":"지금 당장 양자컴퓨터에 투자하라","kind":"책","price":21600,"listPrice":24000,"unit":"","author":"권중현(가을바람)","img":"/adamsmith-demo/assets/img/b-quantum.webp","href":"/adamsmith-demo/books/quantum-invest/"},"book:bitcoin-value":{"type":"book","slug":"bitcoin-value","title":"지속 가능한 비트코인 가치투자","short":"지속 가능한 비트코인 가치투자","kind":"책","price":22500,"listPrice":25000,"unit":"","author":"Xymon","img":"/adamsmith-demo/assets/img/b-bitcoin.webp","href":"/adamsmith-demo/books/bitcoin-value/"},"book:kids-economy-book":{"type":"book","slug":"kids-economy-book","title":"전인구쌤의 어린이 경제 개념 대백과","short":"전인구쌤의 어린이 경제 개념 대백과","kind":"책","price":29700,"listPrice":33000,"unit":"","author":"전인구","img":"/adamsmith-demo/assets/img/b-kids.webp","href":"/adamsmith-demo/books/kids-economy-book/"},"goods:kospi5000-towel":{"type":"goods","slug":"kospi5000-towel","title":"주식 대박 기원 코스피 5000 수건 (색상 랜덤)","short":"주식 대박 기원 코스피 5000 수건 (색상 랜덤)","kind":"상품","price":5000,"unit":"","img":"/adamsmith-demo/assets/img/g-towel.webp","href":"/adamsmith-demo/store/"}},"ship":{"fee":0,"label":"무료","days":"결제 확인 후 3~7일","pending":"데모 기준안 · 운영 전 확정 필요"},"methods":{"card":"신용·체크카드","easy":"간편결제","vbank":"가상계좌","free":"무료 수강 신청"},"urls":{"cart":"/adamsmith-demo/cart/","checkout":"/adamsmith-demo/checkout/","my":"/adamsmith-demo/my/","start":"/adamsmith-demo/start/","classes":"/adamsmith-demo/classes/","books":"/adamsmith-demo/books/","refund":"/adamsmith-demo/help/refund/","help":"/adamsmith-demo/help/","membership":"/adamsmith-demo/membership/"},"finderKey":"adamsmith.finder.v1"}</script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand"><img src="/adamsmith-demo/assets/img/logo-white.png" alt="애덤스미스 ADAMSMITH" width="1200" height="219"><p>전인구경제연구소 · 애덤스미스클래스. 종목이 아니라 흐름을 가르칩니다.</p></div>
+      <div class="ft-col"><h2>공부하기</h2><ul><li><a href="/adamsmith-demo/classes/">강의 전체</a></li><li><a href="/adamsmith-demo/membership/">구독반 비교</a></li><li><a href="/adamsmith-demo/books/">책</a></li><li><a href="/adamsmith-demo/events/">오프라인 특강</a></li><li><a href="/adamsmith-demo/start/">2분 공부 찾기</a></li></ul></div>
+      <div class="ft-col"><h2>알아보기</h2><ul><li><a href="/adamsmith-demo/about/">전인구 소개</a></li><li><a href="/adamsmith-demo/about/adamsmith/">애덤스미스 이야기</a></li><li><a href="/adamsmith-demo/videos/">이번 주 영상 정리</a></li><li><a href="/adamsmith-demo/answers/">질문 답변</a></li><li><a href="/adamsmith-demo/changes/">사이트 변경 기록</a></li></ul></div>
+      <div class="ft-col"><h2>도움</h2><ul><li><a href="/adamsmith-demo/help/">고객센터</a></li><li><a href="/adamsmith-demo/help/how-to-watch/">수강 방법</a></li><li><a href="/adamsmith-demo/help/refund/">환불 규정</a></li><li><a href="/adamsmith-demo/official/">공식 채널 확인</a></li><li><a href="/adamsmith-demo/business/">기업·단체 문의</a></li></ul></div>
+    </div>
+    <div class="ft-channels"><span>공식 채널</span><a href="https://www.youtube.com/@moneydo" rel="noopener" target="_blank">유튜브</a><a href="https://pf.kakao.com/_xoxhWSG" rel="noopener" target="_blank">카카오 채널</a><a href="https://t.me/juningulab" rel="noopener" target="_blank">텔레그램</a><a href="https://www.instagram.com/jun_ingu" rel="noopener" target="_blank">인스타그램</a><a href="https://www.youtube.com/channel/UCznImSIaxZR7fdLCICLdgaQ/join" rel="noopener" target="_blank">유튜브 멤버십</a><a href="https://contents.premium.naver.com/moneydo/juningu" rel="noopener" target="_blank">네이버 프리미엄</a></div>
+    <div class="ft-biz">
+      <div class="row"><span>주식회사 머니두</span><span>대표 전인구</span><span>사업자등록번호 116-87-01149</span><span>통신판매업 2018-세종아름-0160</span></div>
+      <div class="row"><span>(30100) 세종특별자치시 아름서길 3, 세종시아카데미타워 608호(아름동)</span></div>
+      <div class="row"><span>고객센터 044-715-5955 · 평일 10:00~19:00 (주말·공휴일 휴무)</span><span>contact2@moneydo.co.kr</span><span>개인정보 보호책임자 이유정</span></div>
+      <div class="row"><a href="/adamsmith-demo/legal/terms/">이용약관</a><a href="/adamsmith-demo/legal/privacy/"><b>개인정보처리방침</b></a><a href="/adamsmith-demo/help/refund/">환불 규정</a></div>
+      <p class="ft-disclaimer">애덤스미스의 강의·책·영상은 경제와 투자를 공부하도록 돕는 교육 콘텐츠입니다. 특정 종목의 매수·매도를 권하지 않으며, 투자 판단과 그 손익은 투자자 본인에게 귀속됩니다.</p>
+    </div>
+  </div>
+</footer>
+<script src="/adamsmith-demo/assets/js/site.js?v=d6bab879" defer></script>
+<script src="/adamsmith-demo/assets/js/apps/shop.js?v=ac1d6305" defer></script>
+</body>
+</html>
