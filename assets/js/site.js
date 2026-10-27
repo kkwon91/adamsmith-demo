@@ -131,6 +131,202 @@
   });
 })();
 
+/* ── 05-track.js ── */
+/* 방문 기록(데모) — 퍼널·이탈·유입 출처를 관리자에서 보려고 이 브라우저 localStorage 에만 남긴다(서버로 보내지 않음).
+   운영 단계에서는 같은 신호를 그로스메이트 추적(t.js)으로 보낸다.
+   기록하는 것: 방문 시작(출처·캠페인·첫 쪽) · 쪽 보기 · 구간 도달(어디까지 읽었나) · 나감(마지막 구간·머문 시간·스크롤)
+               · 장바구니 담기 · 바로 결제 · 결제 완료 · 2분 진단 완료 · 유튜브·외부로 나감 · 실험 노출(A/B)
+   이름·연락처 같은 개인정보는 기록하지 않는다. 키: adamsmith.events.v1(최근 3,000건) · adamsmith.vid.v1(방문자 임의 번호) */
+(function () {
+  'use strict';
+  var AS = window.AS;
+  if (!AS) return;
+  var EV_KEY = 'adamsmith.events.v1', VID_KEY = 'adamsmith.vid.v1', SESS_KEY = 'adamsmith.sess.v1';
+  var MAX = 3000, IDLE = 30 * 60 * 1000;
+  var path = '/' + (location.pathname.indexOf(AS.base) === 0 ? location.pathname.slice(AS.base.length) : location.pathname.replace(/^\/+/, ''));
+  if (/\/admin\//.test(path)) return;
+  path = path.replace(/index\.html$/, '');
+  function rid() { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); }
+  function sget(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch (e) { return null; } }
+  function sset(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* 무시 */ } }
+
+  // ── 출처 판정: utm 값이 먼저, 없으면 직전 사이트(referrer), 둘 다 없으면 직접 방문 ──
+  var SOURCES = {
+    'yt-desc': '유튜브 설명란', 'yt-pin': '유튜브 고정 댓글', 'yt-community': '유튜브 커뮤니티', 'yt-other': '유튜브(기타)',
+    kakao: '카카오톡 채널', telegram: '텔레그램', instagram: '인스타그램', 'naver-premium': '네이버 프리미엄',
+    'naver-search': '네이버 검색', google: '구글 검색', 'ai-chatgpt': 'ChatGPT', 'ai-perplexity': 'Perplexity', 'ai-gemini': 'Gemini', 'ai-naver': '네이버 AI 브리핑',
+    direct: '직접 방문', other: '기타 사이트'
+  };
+  AS.SOURCES = SOURCES;
+  function classify() {
+    var q = new URLSearchParams(location.search);
+    var us = (q.get('utm_source') || '').toLowerCase(), um = (q.get('utm_medium') || '').toLowerCase(), uc = q.get('utm_campaign') || '';
+    if (us) {
+      var id = 'other';
+      if (/youtube|yt/.test(us)) id = /desc/.test(um) ? 'yt-desc' : /pin|comment/.test(um) ? 'yt-pin' : /community|post/.test(um) ? 'yt-community' : 'yt-other';
+      else if (/kakao/.test(us)) id = 'kakao';
+      else if (/telegram/.test(us)) id = 'telegram';
+      else if (/insta/.test(us)) id = 'instagram';
+      else if (/naver/.test(us)) id = /premium/.test(um) ? 'naver-premium' : /ai|brief/.test(um) ? 'ai-naver' : 'naver-search';
+      else if (/google/.test(us)) id = /gemini/.test(um) ? 'ai-gemini' : 'google';
+      else if (/chatgpt|openai/.test(us)) id = 'ai-chatgpt';
+      else if (/perplexity/.test(us)) id = 'ai-perplexity';
+      else if (/gemini/.test(us)) id = 'ai-gemini';
+      return { src: id, camp: uc, how: 'utm' };
+    }
+    var r = document.referrer || '';
+    var host = '';
+    try { host = r ? new URL(r).hostname : ''; } catch (e) { host = ''; }
+    if (!host) return { src: 'direct', camp: '', how: 'none' };
+    if (host === location.hostname) return null; // 사이트 안 이동
+    if (/youtube\.com|youtu\.be/.test(host)) return { src: 'yt-other', camp: '', how: 'ref' };
+    if (/kakao/.test(host)) return { src: 'kakao', camp: '', how: 'ref' };
+    if (/t\.me|telegram/.test(host)) return { src: 'telegram', camp: '', how: 'ref' };
+    if (/instagram/.test(host)) return { src: 'instagram', camp: '', how: 'ref' };
+    if (/contents\.premium\.naver/.test(host)) return { src: 'naver-premium', camp: '', how: 'ref' };
+    if (/naver\.com/.test(host)) return { src: 'naver-search', camp: '', how: 'ref' };
+    if (/gemini\.google/.test(host)) return { src: 'ai-gemini', camp: '', how: 'ref' };
+    if (/google\./.test(host)) return { src: 'google', camp: '', how: 'ref' };
+    if (/chatgpt\.com|openai\.com/.test(host)) return { src: 'ai-chatgpt', camp: '', how: 'ref' };
+    if (/perplexity/.test(host)) return { src: 'ai-perplexity', camp: '', how: 'ref' };
+    return { src: 'other', camp: host, how: 'ref' };
+  }
+
+  // ── 방문자·방문(세션) ──
+  var vid = AS.load(VID_KEY, null);
+  if (!vid) { vid = rid(); AS.save(VID_KEY, vid); }
+  var now = Date.now(), cls = classify(), sess = sget(SESS_KEY);
+  var fresh = !sess || now - sess.last > IDLE || (cls && cls.how === 'utm' && (cls.src !== sess.src || cls.camp !== sess.camp));
+  if (fresh) { var c = cls || { src: 'direct', camp: '', how: 'none' }; sess = { id: rid(), start: now, src: c.src, camp: c.camp, land: path }; }
+  sess.last = now;
+  sset(SESS_KEY, sess);
+
+  var pvId = rid();
+  function push(e, x) {
+    var list = AS.load(EV_KEY, []);
+    list.push({ t: new Date().toISOString(), v: vid, s: sess.id, src: sess.src, c: sess.camp || undefined, e: e, p: path, pv: pvId, x: x || undefined });
+    if (list.length > MAX) list = list.slice(list.length - MAX);
+    AS.save(EV_KEY, list);
+  }
+  AS.track = { push: push, session: sess, vid: vid, path: path };
+  if (fresh) push('start', { land: path, ref: (document.referrer || '').slice(0, 120) });
+  push('pv', { title: document.title.replace(/\s*\|\s*애덤스미스$/, '') });
+
+  // ── 구간 도달: <main> 의 구간(section·[data-fs]) 중 화면에 35% 이상 들어온 것 ──
+  var ID_NAMES = { intro: '소개', top: '맨 위' };
+  var CLASS_NAMES = { 'vd-end': '정리 출처' };
+  // 제목 안의 작은 덧말(<small>, 개수 표시)은 이름에서 뺀다 — '커리큘럼 지금 열린 차시' → '커리큘럼'
+  function headText(h) { var c = h.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll('small, .vd-h-n, .sr-only'), function (x) { x.remove(); }); return c.textContent; }
+  function clean(t) { return String(t || '').replace(/\s+/g, ' ').replace(/\s*\d+\s*(개|건|강|편)$/, '').replace(/^\d+(?=\S)/, '').trim().slice(0, 30); }
+  function nameOf(el, i) {
+    if (el.getAttribute('data-fs')) return el.getAttribute('data-fs');
+    var lb = el.getAttribute('aria-labelledby'), lh = lb && document.getElementById(lb.split(' ')[0]);
+    if (lh) return clean(headText(lh));
+    var hd = el.querySelector('h2');
+    if (hd) return clean(headText(hd));
+    if (el.querySelector('h1')) return '맨 위';
+    if (ID_NAMES[el.id]) return ID_NAMES[el.id];
+    for (var c in CLASS_NAMES) if (el.classList.contains(c)) return CLASS_NAMES[c];
+    return i === 0 ? '맨 위' : '구간 ' + (i + 1);
+  }
+  // <main> 안의 맨 바깥 구간(다른 구간 안에 든 구간은 뺀다) + 쪽 머리 + data-fs 로 이름 붙인 칸
+  var secs = Array.prototype.slice.call(document.querySelectorAll('main section, main > header, main [data-fs]'))
+    .filter(function (el) { if (el.hidden) return false; var up = el.parentElement && el.parentElement.closest('main section, main [data-fs]'); return !up || el.hasAttribute('data-fs') && !up.hasAttribute('data-fs'); });
+  var seen = {}, lastSec = secs.length ? nameOf(secs[0], 0) : '맨 위', maxScroll = 0;
+  if ('IntersectionObserver' in window && secs.length) {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        if (en.intersectionRatio < 0.35 && en.intersectionRect.height < innerHeight * 0.5) return;
+        var i = secs.indexOf(en.target), n = nameOf(en.target, i);
+        lastSec = n;
+        if (seen[n]) return;
+        seen[n] = 1;
+        push('sec', { n: n, i: i, of: secs.length });
+      });
+    }, { threshold: [0, 0.1, 0.2, 0.35, 0.5] });
+    secs.forEach(function (s) { io.observe(s); });
+  }
+  window.addEventListener('scroll', function () {
+    var h = document.documentElement, p = Math.round((h.scrollTop + innerHeight) / Math.max(1, h.scrollHeight) * 100);
+    if (p > maxScroll) maxScroll = Math.min(100, p);
+  }, { passive: true });
+  var left = false;
+  function leave() {
+    if (left) return;
+    left = true;
+    push('leave', { last: lastSec, dur: Date.now() - now, scroll: maxScroll });
+  }
+  window.addEventListener('pagehide', leave);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') leave(); else left = false; });
+
+  // ── 누름 ──
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cart-add]');
+    if (b) {
+      var it = {}; try { it = JSON.parse(b.getAttribute('data-cart-add')); } catch (err) { /* 무시 */ }
+      push('cart_add', { type: it.type, slug: it.slug, price: it.price, go: b.getAttribute('data-go') || '' });
+      if ((b.getAttribute('data-go') || '').indexOf('checkout') >= 0) push('buy_now', { slug: it.slug });
+      return;
+    }
+    if (e.target.closest('[data-finder-add]')) { push('finder_add', {}); return; }
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/youtube\.com|youtu\.be/.test(href)) push('out_yt', { href: href.slice(0, 120) });
+    else if (/^https?:/.test(href) && href.indexOf(location.host) < 0) push('out', { href: href.slice(0, 120) });
+  }, true);
+
+  // ── 결제 완료: 결제 시연이 주문 기록(AS.KEY.orders)에 새 주문을 더하는 순간 ──
+  var save0 = AS.save;
+  AS.save = function (k, v) {
+    if (k === AS.KEY.orders && Array.isArray(v)) {
+      var before = (AS.load(k, []) || []).length;
+      if (v.length > before) {
+        var o = v[v.length - 1] || {};
+        var items = (o.items || []).map(function (x) { return { type: x.type, slug: x.slug, price: x.price, unit: x.priceUnit }; });
+        push('purchase', { total: o.total || items.reduce(function (s, x) { return s + (+x.price || 0); }, 0), items: items });
+      }
+    }
+    return save0.apply(this, arguments);
+  };
+
+  // ── 2분 진단 완료: 결과 칸이 보이는 순간 ──
+  var res = document.getElementById('hp-result');
+  if (res && 'MutationObserver' in window) {
+    new MutationObserver(function () {
+      if (!res.hidden && res.innerHTML.trim()) {
+        var h = res.querySelector('h2, h3');
+        push('finder_done', { track: h ? h.textContent.trim().slice(0, 30) : '' });
+      }
+    }).observe(res, { attributes: true, attributeFilter: ['hidden'] });
+  }
+
+  // ── 실험: 관리자에서 [실험 시작]한 것은 방문자마다 A·B 를 고정 배정(반반), [B안 확정]한 것은 모두 B ──
+  var ADMIN = AS.admin || {};
+  function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function variantOf(id) {
+    if (ADMIN.exp && ADMIN.exp[id] === 'B') return { v: 'B', why: 'confirmed' };
+    if (ADMIN.expRun && ADMIN.expRun[id]) return { v: hash(vid + ':' + id) % 2 ? 'B' : 'A', why: 'running' };
+    return { v: 'A', why: 'default' };
+  }
+  AS.variantOf = variantOf;
+  var expIds = {};
+  Array.prototype.forEach.call(document.querySelectorAll('[data-exp]'), function (el) { expIds[el.getAttribute('data-exp')] = 1; });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-exp-variant]'), function (el) { expIds[el.getAttribute('data-exp-variant').split(':')[0]] = 1; });
+  Object.keys(expIds).forEach(function (id) {
+    var r = variantOf(id);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-exp="' + id + '"]'), function (el) {
+      var b = el.getAttribute('data-exp-b');
+      if (r.v === 'B' && b && el.getAttribute('data-exp-shown') !== 'B') { el.setAttribute('data-exp-a', el.textContent); el.textContent = b; el.setAttribute('data-exp-shown', 'B'); }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-exp-variant^="' + id + ':"]'), function (el) {
+      el.hidden = el.getAttribute('data-exp-variant') !== id + ':' + r.v;
+    });
+    if (r.why !== 'default') push('exp', { id: id, v: r.v, why: r.why });
+  });
+})();
+
 /* ── 20-home.js ── */
 /* 홈 목적별 공부 길 탭(키보드 좌우 이동) */
 (function () {

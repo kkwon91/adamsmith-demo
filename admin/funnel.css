@@ -1,0 +1,229 @@
+/* 퍼널·이탈 · 유입 출처 · 이탈 차단 전략 — admin.css 의 토큰·부품 위에 얹는다(클래스 접두어 fn-).
+   빨강 = 가장 많이 나가는 곳·금지, 초록 = 가장 좋은 곳·적용 가능, 주황 테두리 = 조건부. 누르스름한 색 금지. */
+:root { --fn-warn: #b03a0a; --fn-warn-line: #f0b79c; --fn-out: #9aa8bf }
+
+/* 보기·기간·출처 띠 */
+.fn-bar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-bottom: 10px }
+.fn-bar__g { display: flex; align-items: center; gap: 8px; min-width: 0; flex-wrap: wrap }
+.fn-bar__k { font-size: 12.5px; font-weight: 700; color: var(--faint) }
+.fn-bar .ad-seg button[disabled] { color: var(--faint); background: var(--mist) }
+.fn-bar .ad-seg button[aria-pressed="true"][disabled] { background: var(--line-strong); color: #fff }
+.fn-tabs { margin: 0 }
+.fn-mine { margin-bottom: 14px }
+.fn-mine b { color: var(--ink) }
+
+/* 막대 색 */
+.fn-hbar.is-bad .ad-hbar__fill { background: var(--bad) }
+.fn-hbar.is-ok .ad-hbar__fill { background: var(--ok) }
+.fn-hbar.is-out .ad-hbar__fill { background: var(--fn-out) }
+.fn-hbars { margin-top: 14px }
+/* 좁은 카드 안 막대: 이름은 윗줄, 막대는 카드 너비 그대로 */
+.fn-hbars { gap: 8px }
+.fn-hbars .ad-hbar { grid-template-columns: minmax(0, 1fr) 64px; gap: 2px 10px }
+.fn-hbars .ad-hbar__k { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px }
+.fn-hbars .ad-hbar__track { height: 14px }
+.fn-hbars .ad-hbar__v { line-height: 1.2 }
+
+/* 퍼널 고르기 카드 */
+.fn-picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(164px, 1fr)); gap: 10px; margin-bottom: 16px }
+.fn-pick { display: grid; gap: 6px; align-content: start; text-align: left; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); min-width: 0 }
+.fn-pick:hover { border-color: var(--blue-line) }
+.fn-pick.is-on { border-color: var(--blue); box-shadow: inset 0 3px 0 var(--blue), 0 1px 2px rgba(15, 26, 43, .06) }
+.fn-pick__h { display: flex; gap: 6px; align-items: baseline; min-width: 0 }
+.fn-pick__no { color: var(--blue-deep); font-weight: 800 }
+.fn-pick__t { font-weight: 750; font-size: 14px; line-height: 1.35; display: flex; align-items: center; gap: 6px }
+.fn-pick__v { font-size: 22px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.15 }
+.fn-pick__v small { display: block; font-size: 11.5px; font-weight: 600; color: var(--faint); letter-spacing: 0 }
+.fn-pick__d { font-size: 12px; color: var(--ink-2); line-height: 1.45 }
+.fn-pick__d b { color: var(--bad); font-variant-numeric: tabular-nums }
+.fn-pick__bad { display: block; font-size: 11px; font-weight: 750; color: var(--bad) }
+.fn-pick--new { border-style: dashed; border-color: var(--line-strong); background: transparent; align-content: center; color: var(--blue-deep) }
+.fn-pick--new .fn-pick__d { color: var(--faint) }
+
+/* 고른 퍼널 + AI 진단(넓은 화면에서 나란히) */
+.fn-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 14px; align-items: start }
+.fn-main > .ad-sec { margin-top: 0 }
+.fn-flow__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: start }
+.fn-flow__kpi { display: grid; justify-items: end; gap: 2px; text-align: right }
+.fn-flow__kpi b { font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--blue-deep); font-variant-numeric: tabular-nums; line-height: 1.1 }
+.fn-flow__kpi span { font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums }
+.fn-steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid }
+.fn-step { display: grid; grid-template-columns: 26px minmax(108px, 150px) minmax(0, 1fr) 84px; gap: 10px; align-items: center; padding: 6px 0 }
+.fn-step__no { width: 24px; height: 24px; border-radius: 50%; background: var(--mist-2); display: grid; place-items: center; font-size: 12px; font-weight: 750; color: var(--ink-2) }
+.fn-step__name { font-size: 13.5px; font-weight: 650; line-height: 1.35 }
+.fn-step__bar { height: 22px; background: var(--mist); border-radius: 0 4px 4px 0 }
+.fn-step__bar span { display: block; height: 100%; background: var(--blue); border-radius: 0 4px 4px 0; min-width: 2px }
+.fn-step__n { text-align: right; font-weight: 750; font-variant-numeric: tabular-nums; font-size: 14px }
+.fn-step__n small { display: block; font-size: 11px; font-weight: 500; color: var(--faint) }
+.fn-gap { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin-left: 36px; padding: 3px 10px; font-size: 12.5px; color: var(--ink-2); border-left: 2px dashed var(--line-strong) }
+.fn-gap b { font-variant-numeric: tabular-nums }
+.fn-gap__arrow { color: var(--faint) }
+.fn-gap__drop b { color: var(--ink) }
+.fn-gap.is-big { background: var(--bad-soft); border-left: 3px solid var(--bad); border-radius: 0 8px 8px 0; padding: 7px 10px; color: var(--bad) }
+.fn-gap.is-big .fn-gap__drop b, .fn-gap.is-big .fn-gap__go b { color: var(--bad) }
+.fn-gap__flag { display: inline-flex; align-items: center; gap: 4px; font-weight: 750; background: var(--bad); color: #fff; padding: 1px 8px; border-radius: 999px; font-size: 12px }
+.fn-gap.is-skip { color: var(--faint) }
+.fn-gap__note { font-size: 11.5px; color: var(--faint) }
+
+/* AI 진단 */
+.fn-diag__grid { display: grid; gap: 12px }
+.fn-diag__main { background: var(--ink); color: var(--on-ink); border-radius: 12px; padding: 16px 18px }
+.fn-diag__k { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 750; color: #a9bff7; margin-bottom: 8px }
+.fn-diag__list { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; line-height: 1.6 }
+.fn-diag__list b { color: #fff }
+.fn-diag__list a { color: #a9bff7 }
+.fn-diag__list--sm { font-size: 13px; color: var(--ink-2); padding-left: 16px }
+.fn-diag__list--sm b { color: var(--ink) }
+.fn-diag__list--sm a { color: var(--blue) }
+.fn-diag__main .ad-ex { color: var(--on-ink-2); border-color: rgba(255, 255, 255, .3) }
+.fn-apply { margin-top: 14px; padding: 14px; border-radius: 10px; background: var(--paper); color: var(--ink) }
+.fn-apply__k { display: flex; align-items: center; gap: 6px; font-weight: 750; font-size: 13.5px; margin-bottom: 10px; color: var(--blue-deep) }
+.fn-apply .ad-ab__text { color: var(--ink-2) }
+.fn-apply--none { display: flex; gap: 8px; font-size: 13px; color: var(--ink-2) }
+.fn-diag__pb { display: grid; gap: 10px; align-content: start }
+.fn-diag__pb > .fn-diag__k { color: var(--blue-deep); margin: 4px 0 0 }
+.fn-pb-empty { padding: 18px; font-size: 13px }
+
+/* 이탈 지점 자세히 */
+.fn-drop__grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start }
+.fn-sc { display: grid; grid-template-columns: minmax(84px, 150px) minmax(0, 1fr) 62px; column-gap: 10px; margin-top: 14px }
+.fn-sc__names > div, .fn-sc__row, .fn-sc__vals > div { height: 34px }
+.fn-sc__names > div { display: flex; align-items: center; font-size: 12.5px; color: var(--ink-2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: block; line-height: 34px }
+.fn-sc__names > div.is-top { color: var(--bad); font-weight: 750 }
+.fn-sc__plot { position: relative; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: 25% 100%; border-right: 1px solid var(--line) }
+.fn-sc__row { position: relative; display: flex; align-items: center }
+.fn-sc__bar { display: block; height: 16px; background: var(--blue-line); border-radius: 0 3px 3px 0 }
+.fn-sc__bar.is-top { background: var(--bad) }
+.fn-sc__dot { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--ink); border: 2px solid #fff; z-index: 2 }
+.fn-sc__line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 1; pointer-events: none }
+.fn-sc__line polyline { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-linejoin: round }
+.fn-sc__vals > div { display: grid; align-content: center; text-align: right; font-variant-numeric: tabular-nums; line-height: 1.15 }
+.fn-sc__vals b { font-size: 13px }
+.fn-sc__vals small { font-size: 10.5px; color: var(--faint) }
+.fn-sc__axis { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--faint); padding-top: 3px; font-variant-numeric: tabular-nums }
+.fn-sc__legend { margin-top: 10px }
+.fn-sw-line { display: inline-block; width: 18px; height: 0; border-top: 2px solid var(--ink-2); position: relative }
+.fn-sw-line::after { content: ""; position: absolute; left: 5px; top: -5px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink) }
+
+/* 출처별 표 */
+.fn-srct { min-width: 720px }
+.fn-srct td small.fn-go, .fn-srct td .fn-go { display: block; font-size: 11px; color: var(--faint); font-weight: 500 }
+.fn-grp-row td { background: var(--mist); font-weight: 700 }
+.fn-indent { padding-left: 26px !important; color: var(--ink-2) }
+.fn-conv { font-weight: 750 }
+.fn-conv.is-best { background: var(--ok-soft) !important; color: var(--ok) }
+.fn-conv.is-worst { background: var(--bad-soft) !important; color: var(--bad) }
+.fn-vidt { min-width: 760px }
+.fn-mini { display: block; width: 90px; height: 8px; border-radius: 4px; background: var(--mist-2); overflow: hidden; margin-top: 6px }
+.fn-mini span { display: block; height: 100%; background: var(--blue) }
+.fn-callout { margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: var(--ok-soft); color: var(--ink); display: flex; gap: 8px; align-items: flex-start }
+.fn-callout .ad-ico { color: var(--ok); margin-top: 2px }
+
+/* 진행 중 실험 */
+.fn-runs { display: grid; gap: 12px }
+.fn-run.is-done { border-color: var(--ok-line) }
+.fn-runt { min-width: 480px }
+.fn-preview { margin-top: 12px; padding: 12px; border: 1px dashed var(--line-strong); border-radius: 10px; background: #fbfcfe }
+
+/* 시연 단추 */
+.fn-demos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px }
+.fn-demo { display: grid; gap: 4px; align-content: start; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); text-decoration: none; min-width: 0 }
+.fn-demo:hover { border-color: var(--blue) }
+.fn-demo__src { justify-self: start; font-size: 11.5px; font-weight: 750; color: var(--blue-deep); background: var(--blue-soft); padding: 1px 8px; border-radius: 999px }
+.fn-demo__t { font-weight: 750; font-size: 14px }
+.fn-demo__n { font-size: 12.5px; color: var(--ink-2) }
+.fn-demo code { font: 11.5px/1.5 ui-monospace, Consolas, monospace; color: var(--faint); overflow-wrap: anywhere; word-break: break-all }
+.fn-demo__go { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 700; color: var(--blue) }
+
+/* 이탈 차단 전략 */
+.fn-push { background: var(--ink); color: var(--on-ink); border-radius: 12px; padding: 18px 20px; display: grid; gap: 12px }
+.fn-push__nums { display: flex; flex-wrap: wrap; gap: 10px 32px }
+.fn-push__nums div { display: grid }
+.fn-push__nums b { font-size: 28px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; line-height: 1.15 }
+.fn-push__nums span { font-size: 12.5px; color: var(--on-ink-2) }
+.fn-push__bar { height: 10px; border-radius: 5px; background: rgba(255, 255, 255, .12); overflow: hidden }
+.fn-push__bar span { display: block; height: 100%; background: #7d9cf0; border-radius: 5px; min-width: 4px }
+.fn-push__d { font-size: 13.5px; color: var(--on-ink) }
+.fn-push__btn { background: #fff; color: var(--ink) }
+.fn-push__btn:hover { background: var(--blue-soft) }
+.fn-first { margin-top: 14px; padding: 18px 20px; border-radius: 12px; background: var(--paper); border: 1px solid var(--bad-line); box-shadow: inset 4px 0 0 var(--bad); display: grid; gap: 8px }
+.fn-first__k { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 750; color: var(--bad) }
+.fn-first__t { font-size: 19px; font-weight: 800; line-height: 1.4 }
+.fn-first__d { font-size: 14px; color: var(--ink-2); max-width: 900px }
+.fn-first__more { margin: 4px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); display: grid; gap: 2px }
+.fn-hotdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--bad); margin-right: 2px; flex: none }
+.fn-badge--warn { background: var(--paper); color: var(--fn-warn); border: 1px solid var(--fn-warn-line) }
+.fn-pbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; align-items: start }
+.fn-pbs--3 { grid-template-columns: repeat(3, minmax(0, 1fr)) }
+.fn-pb { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; min-width: 0 }
+.fn-pb.is-banned { border-color: var(--bad-line); box-shadow: inset 4px 0 0 var(--bad); background: #fffafa }
+.fn-pb--mini { padding: 12px 14px; gap: 6px }
+.fn-pb__head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center }
+.fn-pb__plat { font-size: 12.5px; font-weight: 750; color: var(--ink); margin-right: 2px }
+.fn-pb__t { font-size: 15.5px; font-weight: 750; line-height: 1.4 }
+.fn-pb--mini .fn-pb__t { font-size: 14px }
+.fn-pb__k { display: block; font-size: 11.5px; font-weight: 700; color: var(--faint); margin-bottom: 1px }
+.fn-pb__what, .fn-pb__here, .fn-pb__metric { font-size: 13px; color: var(--ink-2); line-height: 1.6 }
+.fn-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden }
+.fn-pb__what.is-open .fn-clamp { display: block; -webkit-line-clamp: unset; overflow: visible }
+.fn-more { border: 0; background: none; padding: 2px 0; font-size: 12px; font-weight: 700; color: var(--blue); cursor: pointer }
+.fn-ops > span, .fn-mine > span { min-width: 0 }
+.fn-ops code, .fn-demo code { word-break: break-all; overflow-wrap: anywhere }
+.fn-pb__metric { background: var(--blue-soft); border-radius: 8px; padding: 8px 10px; color: var(--ink) }
+.fn-pb__metric .fn-pb__k { color: var(--blue-deep) }
+.fn-pb__src { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; color: var(--faint); margin-left: 4px }
+.fn-pb__src a { display: inline-flex; align-items: center; gap: 2px }
+.fn-pb__here { border-left: 3px solid var(--blue); padding-left: 10px; color: var(--ink) }
+.fn-pb__warn, .fn-pb__ban, .fn-pb__okwhy { display: flex; gap: 6px; align-items: flex-start; font-size: 12.5px; line-height: 1.55 }
+.fn-pb__warn { color: var(--fn-warn) }
+.fn-pb__warn .ad-ico, .fn-pb__ban .ad-ico, .fn-pb__okwhy .ad-ico { margin-top: 3px }
+.fn-pb__ban { color: var(--bad); background: var(--bad-soft); border-radius: 8px; padding: 8px 10px }
+.fn-pb__okwhy { color: var(--ok) }
+.fn-pb__basis { font-size: 11.5px; color: var(--faint) }
+.fn-pb__ev { font-size: 12px; color: var(--faint); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center }
+.fn-pb__ev a { display: inline-flex; align-items: center; gap: 2px }
+.fn-pb__foot { margin-top: 2px; padding-top: 8px; border-top: 1px dashed var(--line) }
+.fn-rules { margin-top: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px }
+.fn-rules summary { cursor: pointer; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; font-size: 14px }
+.fn-rules summary .ad-ico { color: var(--ink-2) }
+.fn-rules__list { margin: 12px 0 10px; padding-left: 20px; display: grid; gap: 10px; font-size: 13.5px }
+.fn-rules__list p { color: var(--ink-2); margin-top: 2px }
+.fn-rules__basis { display: block; font-size: 12px; color: var(--faint); margin-top: 2px }
+.fn-todo { margin: 0; padding: 0 0 0 20px; display: grid; gap: 6px; font-size: 13.5px }
+.fn-todo li { padding: 6px 0; border-bottom: 1px dashed var(--line) }
+.fn-todo .ad-btn { margin-left: 6px }
+
+/* 퍼널 만들기 상자 */
+.fn-new-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+
+/* ── 반응형 ── */
+@media (max-width: 1180px) {
+  .fn-main { grid-template-columns: minmax(0, 1fr) }
+  .fn-pbs--3 { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .fn-main > .ad-sec { margin-top: 14px }
+  .fn-drop__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .fn-drop__sec { grid-column: 1 / -1 }
+}
+@media (max-width: 1040px) {
+  .fn-demos { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+@media (max-width: 720px) {
+  .fn-bar { gap: 8px 14px }
+  .fn-bar__g--grp { width: 100% }
+  .fn-picks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px }
+  .fn-pick { padding: 10px 12px }
+  .fn-pick__v { font-size: 19px }
+  .fn-step { grid-template-columns: 24px minmax(0, 1fr) 72px; gap: 4px 8px }
+  .fn-step__bar { grid-column: 2 / 3; grid-row: 2; height: 14px }
+  .fn-step__n { grid-row: 1 / span 2; grid-column: 3 }
+  .fn-gap { margin-left: 12px }
+  .fn-drop__grid, .fn-pbs, .fn-pbs--3, .fn-demos, .fn-new-steps { grid-template-columns: minmax(0, 1fr) }
+  .fn-flow__head { grid-template-columns: minmax(0, 1fr) }
+  .fn-sc { grid-template-columns: minmax(70px, 96px) minmax(0, 1fr) 54px; column-gap: 8px }
+  .fn-sc__names > div { font-size: 11.5px }
+  .fn-hbars .ad-hbar { grid-template-columns: minmax(0, 1fr) 70px }
+  .fn-hbars .ad-hbar__k { white-space: normal }
+  .fn-first__t { font-size: 17px }
+  .fn-push__nums b { font-size: 24px }
+  .fn-flow__kpi { justify-items: start; text-align: left }
+}

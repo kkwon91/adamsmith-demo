@@ -266,6 +266,8 @@
     SEED.searchDrafts.forEach(function (s) { list.push(searchProp(s)); });
     ST.searchDrafts.forEach(function (s) { list.push(searchProp({ q: s.q, at: s.at, local: true })); });
     list.push(synProp());
+    // 뒤에 실리는 화면(funnel.js 등)이 AdminKit.extraProps 로 더하는 제안
+    (window.AdminKit && window.AdminKit.extraProps || []).forEach(function (f) { try { (f() || []).forEach(function (p) { list.push(p); }); } catch (e) { console.warn(e); } });
     return list;
   }
   function propState(p) {
@@ -391,6 +393,7 @@
     return h;
   }
   function propActions(p, state, bad) {
+    if (p.actions) return p.actions(state, bad); // 제안이 자기 단추를 갖고 오면 그것(퍼널 진단 → [실험 시작] 등)
     var k = esc(p.key);
     var link = p.siteHref ? '<a class="ad-btn ad-btn--ghost ad-btn--sm ad-push" href="' + esc(p.siteHref) + '" target="_blank" rel="noopener" data-site-link>' + esc(p.siteLabel || (state === 'done' ? '사이트에서 보기' : '사이트 미리보기')) + icon('ext', 'ad-ico--sm') + '<span class="ad-sr">(새 창)</span></a>' : '';
     if (state === 'done') {
@@ -1204,4 +1207,14 @@
   });
   if (loggedIn()) ready.then(showApp).catch(function () { $('#ad-login').hidden = true; $('#ad-app').hidden = false; });
   else showLogin();
+
+  // ── 연결 고리: 뒤에 실리는 스크립트(funnel.js 등)가 메뉴·화면·동작·제안을 더한다 ──
+  // 메뉴는 로그인 뒤에 그리므로 MENU 에 넣으면 보인다. 상태·데이터는 바뀔 수 있어 함수로 넘긴다.
+  window.AdminKit = {
+    VIEWS: VIEWS, MENU: MENU, ACT: ACT, $: $, $$: $$, esc: esc, num: num, pct: pct, icon: icon, EX: EX, site: site, hm: hm,
+    head: head, modal: modal, toast: toast, commit: commit, addLog: addLog, rerender: rerender, scan: scan,
+    lineChart: lineChart, barChart: barChart, buildNav: buildNav, route: route,
+    after: function (f) { AFTER.push(f); }, state: function () { return ST; }, data: function () { return D; }, seed: function () { return SEED; },
+    extraProps: []
+  };
 })();
